@@ -1,0 +1,53 @@
+//breakpoints
+*, *:before, *:after {
+	@include box-sizing;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+*:focus {
+	outline: none;
+}
+.scroll {
+	float: left;
+	width: 100%;
+	overflow: auto;
+}
+.container {
+	max-width: $container;
+	margin: 0 auto;
+	padding: 0 $gap;
+}
+.row {
+	width: 100%;
+	float: left;
+	&:after {
+		content: " ";
+		visibility: hidden;
+		display: block;
+		height: 0;
+		clear: both;
+	}
+}
+
+//criando grid
+@for $i from 1 through $gridsize {
+	.col-#{$i} {
+		width: ( $i / $gridsize ) * 100% ;
+		display: inline;
+		float: left;
+		vertical-align: baseline;
+	}
+}
+
+//now the breakpoints
+@each $slug, $size in $breakpoints {
+	@media (max-width: #{$size}){
+		@for $i from 1 through $gridsize {
+			.col-#{$slug}-#{$i} {
+				width: ( $i / $gridsize ) * 100%;
+			}
+		}
+	}
+}
